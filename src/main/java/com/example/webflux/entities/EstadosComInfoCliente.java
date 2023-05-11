@@ -1,8 +1,11 @@
 package com.example.webflux.entities;
 
-public class Cliente {
+import java.util.List;
+
+public class EstadosComInfoCliente {
     private String estadoCliente;
 
+    private List<Estado> estados;
     public String getEstadoCliente() {
         return estadoCliente;
     }
@@ -11,10 +14,19 @@ public class Cliente {
         this.estadoCliente = estadoCliente;
     }
 
+    public List<Estado> getEstados() {
+        return estados;
+    }
+
+    public void setEstados(List<Estado> estados) {
+        this.estados = estados;
+    }
+
     @Override
     public String toString() {
-        return "Cliente{" +
+        return "EstadosComInfoCliente{" +
                 "estadoCliente='" + estadoCliente + '\'' +
+                ", estados=" + estados +
                 '}';
     }
 }

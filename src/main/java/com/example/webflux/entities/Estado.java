@@ -4,10 +4,10 @@ public class Estado {
     private String id;
 
     private String uf;
+
     public Estado(String uf) {
         this.uf = uf;
     }
-
     public Estado() {
     }
 
@@ -25,5 +25,13 @@ public class Estado {
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+
+    @Override
+    public String toString() {
+        return "Estado{" +
+                "id='" + id + '\'' +
+                ", uf='" + uf + '\'' +
+                '}';
     }
 }
