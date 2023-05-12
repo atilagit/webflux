@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Service
 public class Repository {
 
@@ -22,7 +24,10 @@ public class Repository {
                 .method(HttpMethod.GET)
                 .uri("/info-cliente")
                 .retrieve()
-                .bodyToMono(EstadosComInfoCliente.class);
+                .bodyToMono(EstadosComInfoCliente.class)
+                .timeout(Duration.ofMillis(500))
+                .onErrorResume(e -> Mono.empty())
+                .defaultIfEmpty(new EstadosComInfoCliente());
 
         Mono<EstadosComInfoCliente> monoEstados = webClient
                 .method(HttpMethod.GET)
