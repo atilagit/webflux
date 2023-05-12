@@ -12,7 +12,8 @@ import reactor.core.publisher.Mono;
 public class Repository {
 
     WebClient webClient = WebClient.builder()
-            .baseUrl("http://demo6747767.mockable.io")
+            .baseUrl("http://localhost:8081")
+            //.baseUrl("http://demo6747767.mockable.io")
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .build();
 
@@ -29,11 +30,9 @@ public class Repository {
                 .retrieve()
                 .bodyToMono(EstadosComInfoCliente.class);
 
-        EstadosComInfoCliente estadosComInfoCliente = Mono.zip(monoCliente, monoEstados).map(tuple -> {
-            tuple.getT2().setCliente(tuple.getT1().getCliente());
+        return Mono.zip(monoCliente, monoEstados).map(tuple -> {
+            tuple.getT2().setEstadoCliente(tuple.getT1().getEstadoCliente());
             return tuple.getT2();
         }).block();
-
-        return estadosComInfoCliente;
     }
 }

@@ -1,30 +1,32 @@
 package com.example.webflux.entities;
 
 
-public class EstadosComInfoCliente {
-    private Cliente cliente;
-    private Estados estados;
+import java.util.List;
 
-    public Estados getEstados() {
+public class EstadosComInfoCliente {
+    private String estadoCliente;
+    private List<Estado> estados;
+
+    public String getEstadoCliente() {
+        return estadoCliente;
+    }
+
+    public void setEstadoCliente(String estadoCliente) {
+        this.estadoCliente = estadoCliente;
+    }
+
+    public List<Estado> getEstados() {
         return estados;
     }
 
-    public void setEstados(Estados estados) {
+    public void setEstados(List<Estado> estados) {
         this.estados = estados;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     @Override
     public String toString() {
         return "EstadosComInfoCliente{" +
-                "cliente=" + cliente +
+                "estadoCliente='" + estadoCliente + '\'' +
                 ", estados=" + estados +
                 '}';
     }
