@@ -1,6 +1,7 @@
 package com.example.webflux.repositories;
 
 import com.example.webflux.entities.EstadosComInfoCliente;
+import com.example.webflux.util.Property;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -13,19 +14,24 @@ import java.time.Duration;
 @Service
 public class Repository {
 
-    WebClient webClient = WebClient.builder()
-            .baseUrl("http://localhost:8081")
-            //.baseUrl("http://demo6747767.mockable.io")
-            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .build();
+    Property property;
+
+    public Repository(Property property) {
+        this.property = property;
+    }
 
     public EstadosComInfoCliente getEstadosComInfoCliente() {
+        WebClient webClient = WebClient.builder()
+                .baseUrl(property.getBaseUrl())
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
         Mono<EstadosComInfoCliente> monoCliente = webClient
                 .method(HttpMethod.GET)
                 .uri("/info-cliente")
                 .retrieve()
                 .bodyToMono(EstadosComInfoCliente.class)
-                .timeout(Duration.ofMillis(500))
+                .timeout(Duration.ofMillis(property.getTimeOutConfig()))
                 .onErrorResume(e -> Mono.empty())
                 .defaultIfEmpty(new EstadosComInfoCliente());
 
